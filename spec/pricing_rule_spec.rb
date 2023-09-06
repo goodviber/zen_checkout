@@ -60,23 +60,19 @@ describe PricingRule do
     end
 
     it 'should return the discount price if the quantity is equal to the qualifying quantity' do
-      discount_rule = PricingRule.multibuy_rule('001', 2, 8.5)
-      expect(discount_rule.apply('001', 2)).to eq(8.5)
+      expect(subject.apply('001', 2)).to eq(8.5)
     end
 
     it 'should return the discount price if the quantity is greater than the qualifying quantity' do
-      discount_rule = PricingRule.multibuy_rule('001', 2, 8.5)
-      expect(discount_rule.apply('001', 3)).to eq(8.5)
+      expect(subject.apply('001', 3)).to eq(8.5)
     end
 
     it 'should return nil if the quantity is less than the qualifying quantity' do
-      discount_rule = PricingRule.multibuy_rule('001', 2, 8.5)
-      expect(discount_rule.apply('001', 1)).to eq(nil)
+      expect(subject.apply('001', 1)).to eq(nil)
     end
 
     it 'should return nil if the product code is different' do
-      discount_rule = PricingRule.multibuy_rule('001', 2, 8.5)
-      expect(discount_rule.apply('002', 2)).to eq(nil)
+      expect(subject.apply('002', 2)).to eq(nil)
     end
   end
 end
