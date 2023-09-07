@@ -14,8 +14,8 @@ describe DiscountManager do
 
   describe '#discount_price_for' do
     it 'should pass the params to the pricing rule' do
-      expect(pricing_rules[1]).to receive(:type) { PricingRule::TYPE[:multibuy] }
-      expect(pricing_rules[1]).to receive(:apply).with('001', 2)
+      expect(pricing_rules.last).to receive(:type) { PricingRule::TYPE[:multibuy] }
+      expect(pricing_rules.last).to receive(:apply).with('001', 2)
 
       subject.discount_price_for(item, 2)
     end
