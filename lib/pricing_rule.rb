@@ -16,11 +16,7 @@ class PricingRule
 
   def self.discount_rule(minimum_spend, percentage_discount)
     PricingRule.new(PricingRule::TYPE[:discount]) do |sum_total|
-      if sum_total >= minimum_spend
-        sum_total -= sum_total * percentage_discount / 100
-      else
-        sum_total.round(2)
-      end
+      sum_total >= minimum_spend ? (sum_total - (sum_total * percentage_discount / 100)) : sum_total
     end
   end
 
