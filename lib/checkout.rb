@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Checkout
-  attr_reader :pricing_rules, :discount_manager, :basket
+  attr_reader :discount_manager, :basket
 
   def initialize(pricing_rules = [])
     @discount_manager = DiscountManager.new(pricing_rules)
@@ -10,7 +10,7 @@ class Checkout
   end
 
   def scan(item)
-    @basket << item
+    basket << item
   end
 
   def total
