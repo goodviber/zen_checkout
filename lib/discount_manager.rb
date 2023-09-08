@@ -18,7 +18,7 @@ class DiscountManager
 
   def discount_total(total)
     pricing_rules.each do |rule|
-      total = rule.apply(total) if rule.type == 1
+      total = rule.apply(total) if rule.type == PricingRule::TYPE[:discount]
     end
     total
   end
