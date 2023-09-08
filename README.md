@@ -41,4 +41,4 @@ Please create a new branch and create a pull request into master. If you have an
 
 ## To run
 
-`bundle install` and test with `rspec`
+`bundle install` and test with `rspec` included in github worflow
