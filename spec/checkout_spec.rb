@@ -50,9 +50,10 @@ describe Checkout do
 
       context 'all D items are not discounted' do
         it 'should apply discount correctly' do
+          no_rules.scan(item_a)
           no_rules.scan(item_d)
           no_rules.scan(item_d)
-          expect(no_rules.total).to eq(20)
+          expect(no_rules.total).to eq(70)
         end
       end
     end
