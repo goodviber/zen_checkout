@@ -63,7 +63,6 @@ describe Checkout do
           with_rules.scan(item_a)
           with_rules.scan(item_b)
           with_rules.scan(item_c)
-          # byebug
           expect(with_rules.total).to eq(100)
         end
       end
