@@ -8,12 +8,13 @@ class DiscountManager
   end
 
   def discount_price_for(item, quantity)
-    discount_price = nil
+    discount_price = 0
     pricing_rules.each do |rule|
-      discount_price = rule.apply(item.code, quantity) if rule.type == PricingRule::TYPE[:multibuy]
-      return discount_price unless discount_price.nil?
+      discount_price += rule.apply(item.code, quantity) || 0 unless rule.type == PricingRule::TYPE[:discount]
     end
-    item.price * quantity
+    return discount_price unless discount_price.zero?
+
+    item.price.to_f * quantity
   end
 
   def discount_total(total)

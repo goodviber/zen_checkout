@@ -18,11 +18,11 @@ class Checkout
     basket.tally.each do |item, quantity|
       # catch the case where there are no pricing rules
       price += if discount_manager.pricing_rules.none?
-                 item.price * quantity
+                 item.price.to_f * quantity
                else
                  discount_manager.discount_price_for(item, quantity)
                end
     end
-    discount_manager.discount_total(price)
+    discount_manager.discount_total(price).round(2)
   end
 end

@@ -84,7 +84,7 @@ describe PricingRule do
     end
 
     it 'should return the discounted price if the product code matches' do
-      expect(subject.apply('001')).to eq(18)
+      expect(subject.apply('001', 2)).to eq(36)
     end
   end
 end

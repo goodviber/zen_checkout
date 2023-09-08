@@ -8,7 +8,7 @@ describe Checkout do
       PricingRule.discount_rule(200, 10),
       PricingRule.multibuy_rule('A', 2, 90),
       PricingRule.multibuy_rule('B', 3, 75),
-      PricingRule.percentage_discount_rule('D', 100, 10)
+      PricingRule.percentage_discount_rule('D', 10, 10)
     ]
   end
   subject(:no_rules) { described_class.new }
@@ -16,7 +16,7 @@ describe Checkout do
   let(:item_a) { Item.new(code: 'A', price: 50) }
   let(:item_b) { Item.new(code: 'B', price: 30) }
   let(:item_c) { Item.new(code: 'C', price: 20) }
-  let(:item_d) { Item.new(code: 'D', price: 100) }
+  let(:item_d) { Item.new(code: 'D', price: 10) }
 
   describe 'on setup' do
     it 'should have an empty basket' do
@@ -52,7 +52,7 @@ describe Checkout do
         it 'should apply discount correctly' do
           no_rules.scan(item_d)
           no_rules.scan(item_d)
-          expect(no_rules.total).to eq(200)
+          expect(no_rules.total).to eq(20)
         end
       end
     end
@@ -63,6 +63,7 @@ describe Checkout do
           with_rules.scan(item_a)
           with_rules.scan(item_b)
           with_rules.scan(item_c)
+          # byebug
           expect(with_rules.total).to eq(100)
         end
       end
@@ -113,8 +114,14 @@ describe Checkout do
         it 'should apply discount correctly' do
           with_rules.scan(item_d)
           with_rules.scan(item_d)
-          expect(with_rules.total).to eq(180)
+          expect(with_rules.total).to eq(18)
         end
+      end
+
+      it 'should round to 2 decimal places' do
+        item = Item.new(code: 'A', price: 0.333333333)
+        with_rules.scan(item)
+        expect(with_rules.total).to eq(0.33)
       end
     end
   end

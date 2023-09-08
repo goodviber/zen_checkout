@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+# you can add more pricing rules here
+# make sure to add the type to the TYPE hash
+# pass code and quantity to the block
+# to use the DiscountManager discount_price_for method
+
 class PricingRule
   attr_reader :type, :block
 
@@ -16,7 +21,7 @@ class PricingRule
 
   def self.discount_rule(minimum_spend, percentage_discount)
     PricingRule.new(PricingRule::TYPE[:discount]) do |sum_total|
-      sum_total >= minimum_spend ? (sum_total - (sum_total * percentage_discount / 100)) : sum_total
+      sum_total >= minimum_spend ? (sum_total - (sum_total.to_f * percentage_discount.to_f / 100)) : sum_total
     end
   end
 
@@ -27,8 +32,8 @@ class PricingRule
   end
 
   def self.percentage_discount_rule(item_code, original_price, percentage_discount)
-    PricingRule.new(PricingRule::TYPE[:percentage_discount]) do |code|
-      original_price - (original_price * percentage_discount / 100) if code == item_code
+    PricingRule.new(PricingRule::TYPE[:percentage_discount]) do |code, quantity|
+      (original_price - (original_price.to_f * percentage_discount.to_f / 100)) * quantity if code == item_code
     end
   end
 end
