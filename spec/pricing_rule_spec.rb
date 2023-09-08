@@ -75,4 +75,16 @@ describe PricingRule do
       expect(subject.apply('002', 2)).to eq(nil)
     end
   end
+
+  describe '.percentage_discount_rule' do
+    subject { PricingRule.percentage_discount_rule('001', 20, 10) }
+
+    it 'should return a pricing rule' do
+      expect(subject).to be_a(PricingRule)
+    end
+
+    it 'should return the discounted price if the product code matches' do
+      expect(subject.apply('001')).to eq(18)
+    end
+  end
 end

@@ -3,7 +3,7 @@
 class PricingRule
   attr_reader :type, :block
 
-  TYPE = { discount: 1, multibuy: 2 }.freeze
+  TYPE = { discount: 1, multibuy: 2, percentage_discount: 3 }.freeze
 
   def initialize(type, &block)
     @type = type
@@ -23,6 +23,12 @@ class PricingRule
   def self.multibuy_rule(item_code, qualifying_quantity, discount_price)
     PricingRule.new(PricingRule::TYPE[:multibuy]) do |code, quantity|
       discount_price if code == item_code && quantity >= qualifying_quantity
+    end
+  end
+
+  def self.percentage_discount_rule(item_code, original_price, percentage_discount)
+    PricingRule.new(PricingRule::TYPE[:percentage_discount]) do |code|
+      original_price - (original_price * percentage_discount / 100) if code == item_code
     end
   end
 end
