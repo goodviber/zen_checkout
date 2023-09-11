@@ -60,11 +60,11 @@ describe PricingRule do
     end
 
     it 'should return the discount price if the quantity is equal to the qualifying quantity' do
-      expect(subject.apply('001', 2)).to eq(8.5)
+      expect(subject.apply('001', 2)).to eq(17)
     end
 
     it 'should return the discount price if the quantity is greater than the qualifying quantity' do
-      expect(subject.apply('001', 3)).to eq(8.5)
+      expect(subject.apply('001', 3)).to eq(25.5)
     end
 
     it 'should return nil if the quantity is less than the qualifying quantity' do

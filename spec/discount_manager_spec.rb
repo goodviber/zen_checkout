@@ -25,7 +25,7 @@ describe DiscountManager do
 
     it 'should return the discounted price when rule applied' do
       price = subject.discount_price_for(item, 2)
-      expect(price).to eq(8.5)
+      expect(price).to eq(17)
     end
 
     it 'should return the original price when no rule applied' do

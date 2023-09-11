@@ -6,8 +6,8 @@ describe Checkout do
   let(:pricing_rules) do
     [
       PricingRule.discount_rule(200, 10),
-      PricingRule.multibuy_rule('A', 2, 90),
-      PricingRule.multibuy_rule('B', 3, 75),
+      PricingRule.multibuy_rule('A', 2, 45),
+      PricingRule.multibuy_rule('B', 3, 25),
       PricingRule.percentage_discount_rule('D', 10, 10)
     ]
   end
@@ -107,6 +107,15 @@ describe Checkout do
           with_rules.scan(item_b)
           with_rules.scan(item_c)
           expect(with_rules.total).to eq(189)
+        end
+      end
+
+      context 'with more than minimum qualifying products' do
+        it 'should apply discount correctly' do
+          with_rules.scan(item_a)
+          with_rules.scan(item_a)
+          with_rules.scan(item_a)
+          expect(with_rules.total).to eq(135)
         end
       end
 

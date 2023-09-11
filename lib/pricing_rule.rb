@@ -27,7 +27,7 @@ class PricingRule
 
   def self.multibuy_rule(item_code, qualifying_quantity, discount_price)
     PricingRule.new(PricingRule::TYPE[:multibuy]) do |code, quantity|
-      discount_price if code == item_code && quantity >= qualifying_quantity
+      discount_price * quantity if code == item_code && quantity >= qualifying_quantity
     end
   end
 
