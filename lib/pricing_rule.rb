@@ -31,9 +31,9 @@ class PricingRule
     end
   end
 
-  def self.percentage_discount_rule(item_code, original_price, percentage_discount)
+  def self.percentage_discount_rule(item_code, item_price, percentage_discount)
     PricingRule.new(PricingRule::TYPE[:percentage_discount]) do |code, quantity|
-      (original_price - (original_price.to_f * percentage_discount.to_f / 100)) * quantity if code == item_code
+      (item_price - (item_price.to_f * percentage_discount.to_f / 100)) * quantity if code == item_code
     end
   end
 end
